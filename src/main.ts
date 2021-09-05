@@ -1,4 +1,17 @@
-import { createApp } from "vue";
-import App from "./App.vue";
+import { createApp } from 'vue'
+import { globalRegister } from './global'
 
-createApp(App).mount("#app");
+import './service/axios_demo'
+
+import App from './App.vue'
+
+import router from './router'
+import store from './store'
+
+// const app = createApp(App)
+// // registerApp(app)
+// app.use(globalRegister)
+// app.use(router)
+// app.use(store)
+// app.mount('#app')
+createApp(App).use(globalRegister).use(router).use(store).mount('#app')
