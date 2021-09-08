@@ -3,11 +3,9 @@ import { globalRegister } from './global'
 import 'normalize.css'
 import './assets/css/index.less'
 
-// import './service/axios_demo'
-import hyrequest from './service'
+// import hyrequest from './service'
 
 import App from './App.vue'
-import Vue from 'vue'
 
 import router from './router'
 import store from './store'
@@ -36,19 +34,19 @@ createApp(App).use(globalRegister).use(router).use(store).mount('#app')
 //   }
 // })
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
 
-hyrequest
-  .get<DataType>({
-    url: '/home/multidata',
-    showLoading: false
-  })
-  .then((res) => {
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
+// hyrequest
+//   .get<DataType>({
+//     url: '/home/multidata',
+//     showLoading: false
+//   })
+//   .then((res) => {
+//     console.log(res.data)
+//     console.log(res.returnCode)
+//     console.log(res.success)
+//   })
