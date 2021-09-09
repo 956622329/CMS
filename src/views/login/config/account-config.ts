@@ -23,5 +23,28 @@ export const rules = {
       message: '密码必须是3位以上个字母或数字组合',
       trgger: 'blur'
     }
+  ],
+  num: [
+    {
+      required: true,
+      message: '手机号是必传内容',
+      trgger: 'blur'
+    },
+    {
+      pattern: /^[0-9]{11}$/,
+      message: '手机号必须是11位数字',
+      trgger: 'blur'
+    }
+  ],
+  code: [
+    {
+      required: true,
+      message: '请输入6位短信验证码',
+      trgger: 'blur'
+    },
+    {
+      message: '请输入6位短信验证码',
+      trgger: 'blur'
+    }
   ]
 }
