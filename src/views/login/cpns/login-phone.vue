@@ -1,6 +1,6 @@
 <template>
   <div class="login-phone">
-    <el-form label-width="60px" :rules="rules" :model="phone">
+    <el-form label-width="70px" :rules="rules" :model="phone">
       <el-form-item label="手机号" prop="num">
         <el-input v-model="phone.num" />
       </el-form-item>
@@ -37,6 +37,6 @@ export default defineComponent({
   display: flex;
 }
 .get-btn {
-  margin-left: 8px;
+  margin-left: 20px;
 }
 </style>

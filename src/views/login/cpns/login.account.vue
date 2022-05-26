@@ -30,6 +30,8 @@ export default defineComponent({
       formRef.value?.validate((valid) => {
         if (valid) {
           console.log('真正执行登录逻辑')
+        } else {
+          console.log('填写不规范')
         }
       })
     }
@@ -37,7 +39,8 @@ export default defineComponent({
     return {
       account,
       rules,
-      loginAction
+      loginAction,
+      formRef
     }
   }
 })

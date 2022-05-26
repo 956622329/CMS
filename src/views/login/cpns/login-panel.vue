@@ -42,14 +42,13 @@ export default defineComponent({
 
     const handleLoginClick = () => {
       console.log('立即登录')
-      console.log(accountRef.value)
-
       accountRef.value?.loginAction()
     }
 
     return {
       iskeepPassword,
-      handleLoginClick
+      handleLoginClick,
+      accountRef
     }
   }
 })
