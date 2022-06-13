@@ -33,7 +33,7 @@ class TCRequest {
     //添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例都有的拦截器：请求成功拦截')
+        // console.log('所有的实例都有的拦截器：请求成功拦截')
 
         if (this.showLoading) {
           this.loading = ElLoading.service({
@@ -52,7 +52,7 @@ class TCRequest {
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有的实例都有的拦截器：响应成功拦截')
+        // console.log('所有的实例都有的拦截器：响应成功拦截')
 
         //将loading移除
         setTimeout(() => {

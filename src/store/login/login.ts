@@ -1,3 +1,4 @@
+import { IAcount } from './../../service/login/type'
 import { Module } from 'vuex'
 
 import { ILoginSate } from './types'
@@ -14,15 +15,27 @@ const loginModule: Module<ILoginSate, IRootState> = {
     }
   },
   getters: {},
-  mutations: {},
-  actions: {
-    accountLoginAction({ commit }, payload: any) {
-      //实现登录逻辑
-      console.log('执行accountLoginAction', payload)
-    },
-    phoneLoginAction({ commit }, payload: any) {
-      console.log('执行phoneLoginAction', payload)
+  mutations: {
+    changeToken(state, token) {
+      console.log(token)
+
+      state.token = token
     }
+  },
+  actions: {
+    //账号密码登录
+    async accountLoginAction({ commit }, payload: IAcount) {
+      //1.实现登录逻辑
+      const loginResult = await accountLoginRequest(payload)
+      const { id, token } = loginResult.data
+      commit('changeToken', token)
+
+      //2.请求用户信息
+    }
+    //手机号登录
+    // phoneLoginAction({ commit }, payload: any) {
+    //   console.log('执行phoneLoginAction', payload)
+    // }
   }
 }
 

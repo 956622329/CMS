@@ -49,7 +49,7 @@ export default defineComponent({
     //定义方法
     const handleLoginClick = () => {
       if (currentTab.value === 'account') {
-        console.log('立即登录')
+        // console.log('立即登录')
         accountRef.value?.loginAction(iskeepPassword.value)
       } else {
         console.log('phoneRef调用loginaction')
