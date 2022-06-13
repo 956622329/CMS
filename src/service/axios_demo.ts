@@ -17,8 +17,10 @@ axios
 
 axios
   .post('http://httpbin.org/post', {
-    name: 'xiaozhang',
-    age: 18
+    data: {
+      name: 'xiaozhang',
+      age: 18
+    }
   })
   .then((res) => {
     console.log(res.data)

@@ -1,3 +1,7 @@
+// 2.根据process.env.NODE_ENV区分
+// 开发环境: development
+// 生成环境: production
+// 测试环境: test
 let BASE_URL = ''
 const BTIME_OUT = 1000
 

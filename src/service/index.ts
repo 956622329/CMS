@@ -1,29 +1,30 @@
 //service统一出口
-import HYRequest from './request'
+import TCRequest from './request'
 import { BASE_URL, BTIME_OUT } from './request/config'
 
-const hyrequest = new HYRequest({
+const tcRequest = new TCRequest({
   baseURL: BASE_URL,
   timeout: BTIME_OUT,
 
   interceptors: {
     requestInterceptor: (config) => {
-      console.log('请求成功拦截')
+      //携带token的拦截
+      const token = ''
+      if (token) {
+        config.headers.Authorization = 'bearer${token}'
+      }
       return config
     },
     requestInterceptorCatch: (err) => {
-      console.log('请求失败拦截')
       return err
     },
     responseInterceptor: (res) => {
-      console.log('响应成功拦截')
       return res
     },
     responseInterceptorCatch: (err) => {
-      console.log('响应失败拦截')
       return err
     }
   }
 })
 
-export default hyrequest
+export default tcRequest

@@ -1,0 +1,4 @@
+export interface ILoginSate {
+  token: string
+  userInfo: any
+}
