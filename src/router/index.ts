@@ -21,4 +21,6 @@ const router = createRouter({
   history: createWebHashHistory()
 })
 
+router.beforeEach()
+
 export default router
