@@ -57,6 +57,20 @@ const loginModule: Module<ILoginSate, IRootState> = {
 
       //4.跳到首页
       router.push('/main')
+    },
+    loadLocalLogin({ commit }) {
+      const token = localCache.getCache('token')
+      if (token) {
+        commit('changeToken', token)
+      }
+      const userInfo = localCache.getCache('userInfo')
+      if (token) {
+        commit('changeUserInfo', userInfo)
+      }
+      const userMenus = localCache.getCache('userMenus')
+      if (token) {
+        commit('changeUserMenus', userMenus)
+      }
     }
     //手机号登录
     // phoneLoginAction({ commit }, payload: any) {

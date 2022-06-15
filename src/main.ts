@@ -9,15 +9,17 @@ import App from './App.vue'
 
 import router from './router'
 import store from './store'
+import { setupStore } from './store'
 
-// const app = createApp(App)
-// // registerApp(app)
-// app.use(globalRegister)
-// app.use(router)
-// app.use(store)
-// app.mount('#app')
+const app = createApp(App)
+// registerApp(app)
+app.use(globalRegister)
+app.use(router)
+app.use(store)
+setupStore()
+app.mount('#app')
 
-createApp(App).use(globalRegister).use(router).use(store).mount('#app')
+// createApp(App).use(globalRegister).use(router).use(store).mount('#app')
 
 // hyrequest.request({
 //   url: '/home/multidata',
