@@ -5,8 +5,6 @@
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex'
-
 import { defineComponent } from 'vue'
 import LoginPanel from './cpns/login-panel.vue'
 
