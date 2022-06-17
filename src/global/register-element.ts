@@ -18,8 +18,7 @@ import {
   ElLink,
   ElContainer,
   ElHeader,
-  ElMain,
-  ElFooter
+  ElMain
 } from 'element-plus'
 
 const components = [
