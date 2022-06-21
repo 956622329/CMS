@@ -1,6 +1,7 @@
 <template>
   <div class="nav-header">
-    <el-icon><Fold /></el-icon>
+    <el-icon><Expand /></el-icon>
+    <!-- <i class="el-icon-s-fold"></i> -->
   </div>
 </template>
 
