@@ -1,15 +1,18 @@
 import { App } from 'vue'
-// import { Edit, Expand, Fold } from '@element-plus/icons-vue'
+//按需导入需要的icon图标
+import {
+  Expand,
+  Fold,
+  Monitor,
+  Setting,
+  Goods,
+  ChatLineRound
+} from '@element-plus/icons-vue'
 
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
-// const components = [Edit, Expand, Fold]
+const components = [Expand, Fold, Monitor, Setting, Goods, ChatLineRound]
 
 export default function (app: App): void {
-  // for (const [key, component] of Object.entries(components)) {
-  //   app.component(key, component)
-  // }
-  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
+  for (const cpn of components) {
+    app.component(cpn.name, cpn)
   }
 }

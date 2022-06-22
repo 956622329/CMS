@@ -3,7 +3,7 @@ import type { AxiosInstance } from 'axios'
 import type { TCRequestInterceptors, TCRequestConfig } from './type'
 
 import { ElLoading } from 'element-plus'
-import { ILoadingInstance } from 'element-plus/lib/components/loading/src/loading.type'
+// import { LoadingInstance } from 'element-plus/es/components/loading/src/types'
 
 const DEAFULT_LOADING = true
 
@@ -11,7 +11,7 @@ class TCRequest {
   instance: AxiosInstance
   interceptors?: TCRequestInterceptors
   showLoading: boolean
-  loading?: ILoadingInstance
+  loading?: any
 
   constructor(config: TCRequestConfig) {
     // 创建axios实例

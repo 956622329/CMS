@@ -5,5 +5,5 @@ import registerElementicons from './register-elementicons'
 export function globalRegister(app: App): void {
   // registerElement(app)
   app.use(registerElement)
-  // app.use(registerElementicons)
+  app.use(registerElementicons)
 }

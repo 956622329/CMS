@@ -7,8 +7,8 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical"
-      :collapse="collapse"
       background-color="#0c2135"
+      :collapse="collapse"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
     >
@@ -18,14 +18,20 @@
           <!-- 二级菜单可以展开的标题 -->
           <el-sub-menu :index="item.id + ''">
             <template #title>
-              <i v-if="item.icon" :class="item.icon"></i>
+              <!-- <i v-if="item.icon" :class="item.icon"></i> -->
+              <el-icon v-if="item.icon">
+                <component :is="menuIconName(item.icon)"></component
+              ></el-icon>
               <span>{{ item.name }}</span>
             </template>
             <!-- 遍历里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="subitem.id + ''">
                 <template #title>
-                  <i v-if="subitem.icon" :class="subitem.icon"></i>
+                  <!-- <i v-if="subitem.icon" :class="subitem.icon"></i> -->
+                  <el-icon v-if="subitem.icon">
+                    <component :is="'Monitor'"></component
+                  ></el-icon>
                   <span>{{ subitem.name }}</span>
                 </template>
               </el-menu-item>
@@ -49,10 +55,32 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
 
 export default defineComponent({
+  props: {
+    collapse: {
+      type: Boolean,
+      default: false
+    }
+  },
   setup() {
+    // const menuIconName = computed(() => {
+    //   return 1
+    // })
+    const menuIconName = (itemicon: any) => {
+      itemicon = itemicon
+        .slice(8)
+        .split('-')
+        .forEach((str: string, index: number, array: Array<string>) => {
+          str = str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()
+          array[index] = str
+          console.log(str)
+        })
+
+      console.log(itemicon)
+      return itemicon
+    }
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
-    return { userMenus }
+    return { userMenus, menuIconName }
   }
 })
 </script>

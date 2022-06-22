@@ -1,5 +1,6 @@
 import { App } from 'vue'
 import 'element-plus/dist/index.css'
+//按需导入所需的element模块
 import {
   ElButton,
   ElTable,
@@ -22,7 +23,8 @@ import {
   ElMenu,
   ElMenuItem,
   ElSubMenu,
-  ElMenuItemGroup
+  ElMenuItemGroup,
+  ElIcon
 } from 'element-plus'
 
 const components = [
@@ -42,13 +44,13 @@ const components = [
   ElCheckbox,
   ElLink,
   ElContainer,
-  ElAside,
   ElHeader,
   ElMain,
   ElMenu,
   ElMenuItem,
   ElSubMenu,
-  ElMenuItemGroup
+  ElMenuItemGroup,
+  ElIcon
 ]
 
 export default function (app: App): void {
