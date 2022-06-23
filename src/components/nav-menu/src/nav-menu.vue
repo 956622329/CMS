@@ -2,7 +2,7 @@
   <div class="nav-menu">
     <div class="logo">
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
-      <span class="title">Vue3+TS</span>
+      <span v-if="!collapse" class="title">Vue3+TS</span>
     </div>
     <el-menu
       default-active="2"
@@ -18,7 +18,9 @@
           <!-- 二级菜单可以展开的标题 -->
           <el-sub-menu :index="item.id + ''">
             <template #title>
+              <!-- 内测版icon图标使用方法 -->
               <!-- <i v-if="item.icon" :class="item.icon"></i> -->
+              <!-- 新版icon使用方法 -->
               <el-icon v-if="item.icon">
                 <component :is="menuIconName(item.icon)"></component
               ></el-icon>
@@ -28,9 +30,8 @@
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="subitem.id + ''">
                 <template #title>
-                  <!-- <i v-if="subitem.icon" :class="subitem.icon"></i> -->
                   <el-icon v-if="subitem.icon">
-                    <component :is="'Monitor'"></component
+                    <component :is="menuIconName(subitem.icon)"></component
                   ></el-icon>
                   <span>{{ subitem.name }}</span>
                 </template>
@@ -41,7 +42,9 @@
         <template v-else-if="item.type === 2">
           <!-- 一级菜单 -->
           <el-sub-menu :index="item.id + ''">
-            <i v-if="item.icon" :class="item.icon"></i>
+            <el-icon v-if="item.icon">
+              <component :is="menuIconName(item.icon)"></component
+            ></el-icon>
             <span>{{ item.name }}</span>
           </el-sub-menu>
         </template>
@@ -62,22 +65,19 @@ export default defineComponent({
     }
   },
   setup() {
-    // const menuIconName = computed(() => {
-    //   return 1
-    // })
-    const menuIconName = (itemicon: any) => {
-      itemicon = itemicon
+    const menuIconName = (itemicon: string) => {
+      //把item.icon的旧图标名称改成新图标名称，"el-icon-chat-line-round"=>"ChatLineRound"
+      let str = ''
+      itemicon
         .slice(8)
         .split('-')
-        .forEach((str: string, index: number, array: Array<string>) => {
-          str = str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase()
-          array[index] = str
-          console.log(str)
+        .forEach((item: string) => {
+          str =
+            str + item.slice(0, 1).toUpperCase() + item.slice(1).toLowerCase()
         })
-
-      console.log(itemicon)
-      return itemicon
+      return str
     }
+
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
     return { userMenus, menuIconName }
