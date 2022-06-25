@@ -1,17 +1,15 @@
 <template>
   <div class="nav-header">
-    <!-- <el-icon class="fold-menu" v-if="isFold" @click="handleFoldClick"
-      ><Expand
-    /></el-icon> -->
-
     <el-icon class="fold-menu" v-if="isFold" @click="handleFoldClick">
       <component :is="'Expand'"></component
     ></el-icon>
-    <!-- <el-icon><Monitor /></el-icon> -->
-
     <el-icon class="fold-menu" v-if="!isFold" @click="handleFoldClick"
       ><Fold
     /></el-icon>
+    <div class="content">
+      <div>面包屑</div>
+      <div>11111</div>
+    </div>
   </div>
 </template>
 
@@ -34,9 +32,20 @@ export default defineComponent({
 
 <style scoped lang="less">
 .nav-header {
+  display: flex;
+  width: 100%;
+
   .fold-menu {
     font-size: 30px;
     cursor: pointer;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    padding: 0 20px;
   }
 }
 </style>
