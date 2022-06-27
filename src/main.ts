@@ -15,9 +15,11 @@ const app = createApp(App)
 
 // registerApp(app)
 app.use(globalRegister)
-app.use(router)
 app.use(store)
 setupStore()
+
+app.use(router)
+
 app.mount('#app')
 
 // createApp(App).use(globalRegister).use(router).use(store).mount('#app')

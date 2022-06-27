@@ -6,10 +6,23 @@ import {
   Monitor,
   Setting,
   Goods,
-  ChatLineRound
+  ChatLineRound,
+  ArrowDown,
+  CircleClose,
+  UserFilled
 } from '@element-plus/icons-vue'
 
-const components = [Expand, Fold, Monitor, Setting, Goods, ChatLineRound]
+const components = [
+  Expand,
+  Fold,
+  Monitor,
+  Setting,
+  Goods,
+  ChatLineRound,
+  ArrowDown,
+  CircleClose,
+  UserFilled
+]
 
 export default function (app: App): void {
   for (const cpn of components) {
