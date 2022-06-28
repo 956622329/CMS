@@ -42,6 +42,7 @@
             </template>
           </el-sub-menu>
         </template>
+
         <template v-else-if="item.type === 2">
           <!-- 一级菜单 -->
           <el-sub-menu :index="item.id + ''">

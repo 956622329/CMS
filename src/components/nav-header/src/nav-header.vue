@@ -7,16 +7,21 @@
       ><Fold
     /></el-icon>
     <div class="content">
-      <tc-breadcrumb />
+      <tc-breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import UserInfo from './user-info.vue'
 import TcBreadcrumb from '@/base-ui/breadcrunmb'
+
+import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+
+import { pathMapBreadcrumbs } from '@/utils/map-menus'
 
 export default defineComponent({
   components: { UserInfo, TcBreadcrumb },
@@ -28,7 +33,18 @@ export default defineComponent({
       emit('foldChange', isFold.value)
     }
 
-    return { isFold, handleFoldClick }
+    //面包屑数据
+    const store = useStore()
+    //store
+    const userMenus = store.state.login.userMenus
+    const breadcrumbs = computed(() => {
+      //router
+      const route = useRoute()
+      const currentPath = route.path
+      return pathMapBreadcrumbs(userMenus, currentPath)
+    })
+
+    return { isFold, handleFoldClick, breadcrumbs }
   }
 })
 </script>
