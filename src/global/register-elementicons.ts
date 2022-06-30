@@ -9,7 +9,9 @@ import {
   ChatLineRound,
   ArrowDown,
   CircleClose,
-  UserFilled
+  UserFilled,
+  Refresh,
+  Search
 } from '@element-plus/icons-vue'
 
 const components = [
@@ -21,7 +23,9 @@ const components = [
   ChatLineRound,
   ArrowDown,
   CircleClose,
-  UserFilled
+  UserFilled,
+  Refresh,
+  Search
 ]
 
 export default function (app: App): void {
