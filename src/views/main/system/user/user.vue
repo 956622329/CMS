@@ -1,48 +1,55 @@
 <template>
   <div class="user">
-    <div class="search">
-      <tc-form v-bind="searchFormConfig" v-model="formData">
-        <template #header>
-          <h1>高级检索</h1>
-        </template>
-        <template #footer>
-          <div class="handle-btns">
-            <el-button type="primary" icon="Refresh">重置</el-button>
-            <el-button type="primary" icon="Search">搜索</el-button>
-          </div>
-        </template>
-      </tc-form>
+    <div class="search"></div>
+    <page-search :searchFormConfig="searchFormConfig" />
+    <div class="content">
+      <tc-table :listData="userList" :propList="propList" />
     </div>
-    <div class="content"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import TcForm from '@/base-ui/form'
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
+
+import PageSearch from '@/components/page-search'
+import TcTable from '@/base-ui/table'
 
 import { searchFormConfig } from './config/search.config'
 
 export default defineComponent({
-  components: { TcForm },
+  components: { PageSearch, TcTable },
   name: 'user',
   setup() {
-    const formData = ref({
-      id: '',
-      name: '',
-      password: '',
-      sport: '',
-      createTime: ''
+    const store = useStore()
+    store.dispatch('system/getPageListAction', {
+      pageUrl: '/users/list',
+      queryInfo: {
+        offset: 0,
+        size: 10
+      }
     })
+    const userList = computed(() => store.state.system.userList)
 
-    return { searchFormConfig, formData }
+    const userCount = computed(() => store.state.system.userCount)
+
+    const propList = [
+      { prop: 'name', label: '用户名', minWidth: '100' },
+      { prop: 'realname', label: '真实姓名', minWidth: '100' },
+      { prop: 'cellphone', label: '电话号码', minWidth: '100' },
+      { prop: 'enable', label: '状态', minWidth: '100' },
+      { prop: 'createAt', label: '创建时间', minWidth: '100' },
+      { prop: 'updateAt', label: '更新时间', minWidth: '100' }
+    ]
+
+    return { searchFormConfig, userList, userCount, propList, TcTable }
   }
 })
 </script>
 
 <style scoped lang="less">
-.handle-btns {
-  text-align: right;
-  padding: 0 50px 20px 0;
+.content {
+  padding: 20px;
+  border-top: 20px solid #f5f5f5;
 }
 </style>

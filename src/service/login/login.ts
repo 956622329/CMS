@@ -1,5 +1,6 @@
 import tcRequest from '../index'
-import { IAcount, ILoginResult, IDataType } from './type'
+import { IAcount, ILoginResult } from './type'
+import { IDataType } from '../type'
 
 enum LoginAPI {
   AccountLogin = '/login',
