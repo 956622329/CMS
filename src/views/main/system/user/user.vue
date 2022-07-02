@@ -3,7 +3,35 @@
     <div class="search"></div>
     <page-search :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <tc-table :listData="userList" :propList="propList" />
+      <tc-table
+        :listData="userList"
+        :propList="propList"
+        :showIndexColumn="showIndexColumn"
+        :showSelectColumn="showSelectColumn"
+      >
+        <template #state="scope">
+          <el-button
+            plain
+            size="small"
+            :type="scope.row.enable ? 'success' : 'danger'"
+            >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
+          >
+        </template>
+        <template #createAt="scope">
+          <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+        </template>
+        <template #updateAt="scope">
+          <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+        </template>
+        <template #handler>
+          <el-button icon="Edit" link type="primary" size="small"
+            >编辑</el-button
+          >
+          <el-button icon="Delete" link type="danger" size="small"
+            >删除</el-button
+          >
+        </template>
+      </tc-table>
     </div>
   </div>
 </template>
@@ -37,12 +65,38 @@ export default defineComponent({
       { prop: 'name', label: '用户名', minWidth: '100' },
       { prop: 'realname', label: '真实姓名', minWidth: '100' },
       { prop: 'cellphone', label: '电话号码', minWidth: '100' },
-      { prop: 'enable', label: '状态', minWidth: '100' },
-      { prop: 'createAt', label: '创建时间', minWidth: '100' },
-      { prop: 'updateAt', label: '更新时间', minWidth: '100' }
+      { prop: 'enable', label: '状态', minWidth: '100', slotName: 'state' },
+      {
+        prop: 'createAt',
+        label: '创建时间',
+        minWidth: '100',
+        slotName: 'createAt'
+      },
+      {
+        prop: 'updateAt',
+        label: '更新时间',
+        minWidth: '100',
+        slotName: 'updateAt'
+      },
+      {
+        label: '操作',
+        minWidth: '120',
+        slotName: 'handler'
+      }
     ]
 
-    return { searchFormConfig, userList, userCount, propList, TcTable }
+    const showIndexColumn = true
+    const showSelectColumn = true
+
+    return {
+      searchFormConfig,
+      userList,
+      userCount,
+      propList,
+      TcTable,
+      showIndexColumn,
+      showSelectColumn
+    }
   }
 })
 </script>

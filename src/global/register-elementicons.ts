@@ -11,7 +11,9 @@ import {
   CircleClose,
   UserFilled,
   Refresh,
-  Search
+  Search,
+  Edit,
+  Delete
 } from '@element-plus/icons-vue'
 
 const components = [
@@ -25,7 +27,9 @@ const components = [
   CircleClose,
   UserFilled,
   Refresh,
-  Search
+  Search,
+  Edit,
+  Delete
 ]
 
 export default function (app: App): void {

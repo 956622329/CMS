@@ -1,10 +1,30 @@
 <template>
   <div>
-    <el-table :data="listData" border style="width: 100%">
+    <el-table
+      :data="listData"
+      border
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column
+        v-if="showSelectColumn"
+        type="selection"
+        align="center"
+        width="60"
+      ></el-table-column>
+      <el-table-column
+        v-if="showIndexColumn"
+        type="index"
+        label="序号"
+        align="center"
+        width="80"
+      ></el-table-column>
       <template v-for="propItem of propList" :key="propItem.prop">
         <el-table-column align="center" v-bind="propItem">
           <template #default="scope">
-            <el-button>{{ scope.row[propItem.prop] }}</el-button>
+            <slot :name="propItem.slotName" :row="scope.row">
+              {{ scope.row[propItem.prop] }}
+            </slot>
           </template>
         </el-table-column>
       </template>
@@ -24,10 +44,22 @@ export default defineComponent({
     propList: {
       type: Array,
       reuqired: true
+    },
+    showIndexColumn: {
+      type: Boolean,
+      defalut: false
+    },
+    showSelectColumn: {
+      type: Boolean,
+      defalut: false
     }
   },
-  setup() {
-    return {}
+  emits: ['selectionChange'],
+  setup(props, { emit }) {
+    const handleSelectionChange = (value: any) => {
+      emit('selectionChange', value)
+    }
+    return { handleSelectionChange }
   }
 })
 </script>
