@@ -1,7 +1,7 @@
 export const contentTableConfig = {
   propList: [
-    { prop: 'name', label: '人事', minWidth: '100' },
-    { prop: 'intro', label: '人事管理', minWidth: '100' },
+    { prop: 'name', label: '角色名', minWidth: '100' },
+    { prop: 'intro', label: '权限介绍', minWidth: '100' },
     {
       prop: 'createAt',
       label: '创建时间',

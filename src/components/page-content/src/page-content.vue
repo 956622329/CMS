@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <tc-table :listData="userList" v-bind="contentTableConfig">
+    <tc-table :listData="listData" v-bind="contentTableConfig">
       <!-- header中的插槽 -->
       <template #headerHandler>
         <el-button type="primary" size="medium">新建用户</el-button>
@@ -59,11 +59,22 @@ export default defineComponent({
         size: 10
       }
     })
+    // let listData
+    // switch (props.pageName) {
+    //   case 'users':
+    //     listData = computed(() => store.state.system.userList)
+    //     break
+    //   case 'role':
+    //     listData = computed(() => store.state.system.roleList)
+    //     break
+    // }
+    const listData = computed(() =>
+      store.getters[`system/pageListData`](props.pageName)
+    )
 
-    const userList = computed(() => store.state.system.userList)
     // const userCount = computed(() => store.state.system.userCount)
 
-    return { userList }
+    return { listData }
   }
 })
 </script>
