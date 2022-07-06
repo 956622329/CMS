@@ -93,6 +93,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const formData = ref({ ...props.modelValue })
+
     watch(
       formData,
       (newValue) => {
@@ -100,6 +101,10 @@ export default defineComponent({
       },
       { deep: true }
     )
+
+    const handleValueChange = (value: any, field: string) => {
+      emit('update:modelValue', { ...props.modelValue, [field]: value })
+    }
     return { formData }
   }
 })
