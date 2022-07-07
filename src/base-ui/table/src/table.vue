@@ -11,7 +11,7 @@
       </slot>
     </div>
     <el-table
-      :data="listData"
+      :data="dataList"
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
@@ -63,7 +63,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
-    listData: {
+    dataList: {
       type: Object,
       reuqired: true
     },

@@ -1,6 +1,6 @@
 <template>
   <div class="page-content">
-    <tc-table :listData="listData" v-bind="contentTableConfig">
+    <tc-table :dataList="dataList" v-bind="contentTableConfig">
       <!-- header中的插槽 -->
       <template #headerHandler>
         <el-button type="primary" size="medium">新建用户</el-button>
@@ -37,6 +37,7 @@ import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
 
 import TcTable from '@/base-ui/table'
+import overview from '@/router/main/analysis/overview/overview'
 
 export default defineComponent({
   components: { TcTable },
@@ -52,13 +53,19 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore()
-    store.dispatch('system/getPageListAction', {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+    //发送网络请求
+    const getPageData = (queryInfo: any = {}) => {
+      store.dispatch('system/getPageListAction', {
+        pageName: props.pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+          ...queryInfo
+        }
+      })
+    }
+
+    //从Vuex中获取数据
     // let listData
     // switch (props.pageName) {
     //   case 'users':
@@ -68,13 +75,13 @@ export default defineComponent({
     //     listData = computed(() => store.state.system.roleList)
     //     break
     // }
-    const listData = computed(() =>
+    const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
     )
 
     // const userCount = computed(() => store.state.system.userCount)
 
-    return { listData }
+    return { dataList, getPageData }
   }
 })
 </script>
