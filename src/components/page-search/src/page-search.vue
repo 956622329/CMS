@@ -43,11 +43,11 @@ export default defineComponent({
 
     //2.优化二:当用户点击重置
     const handlerResetClick = () => {
-      // for (const key in formOriginData) {
-      //深拷贝
-      //   formData.value[key] = formOriginData[key]
-      // }
-      formData.value = formOriginData
+      for (const key in formOriginData) {
+        // 深拷贝
+        formData.value[key] = formOriginData[key]
+      }
+      // formData.value = formOriginData
       emit('resetBtnClick')
     }
 

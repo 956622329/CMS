@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tc-table">
     <div class="header">
       <slot name="header">
         <div class="title">
@@ -11,7 +11,7 @@
       </slot>
     </div>
     <el-table
-      :data="dataList"
+      :data="listData"
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
@@ -42,16 +42,13 @@
     <div class="footer">
       <slot name="footer">
         <el-pagination
-          v-model:currentPage="currentPage4"
-          v-model:page-size="pageSize4"
-          :page-sizes="[100, 200, 300, 400]"
-          :small="small"
-          :disabled="disabled"
-          :background="background"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
+          :current-page="page.currentPage"
+          :page-size="page.pageSize"
+          :page-sizes="[10, 20, 30]"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="listCount"
         />
       </slot>
     </div>
@@ -63,9 +60,17 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
-    dataList: {
+    title: {
+      type: String,
+      defalut: ''
+    },
+    listData: {
       type: Object,
       reuqired: true
+    },
+    listCount: {
+      type: Number,
+      defalut: 0
     },
     propList: {
       type: Array,
@@ -79,17 +84,25 @@ export default defineComponent({
       type: Boolean,
       defalut: false
     },
-    title: {
-      type: String,
-      defalut: ''
+    page: {
+      type: Object,
+      defalut: () => ({ currentPage: 0, pageSize: 10 })
     }
   },
-  emits: ['selectionChange'],
+  emits: ['selectionChange', 'update:page'],
   setup(props, { emit }) {
     const handleSelectionChange = (value: any) => {
       emit('selectionChange', value)
     }
-    return { handleSelectionChange }
+    const handleCurrentChange = (currentPage: number) => {
+      console.log(props.page)
+      emit('update:page', { ...props.page, currentPage })
+    }
+    const handleSizeChange = (pageSize: number) => {
+      emit('update:page', { ...props.page, pageSize: [`${pageSize}`] })
+    }
+
+    return { handleSelectionChange, handleSizeChange, handleCurrentChange }
   }
 })
 </script>
@@ -114,7 +127,6 @@ export default defineComponent({
 
 .footer {
   margin-top: 15px;
-
   .el-pagination {
     text-align: right;
   }

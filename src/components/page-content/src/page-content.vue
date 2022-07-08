@@ -1,6 +1,11 @@
 <template>
   <div class="page-content">
-    <tc-table :dataList="dataList" v-bind="contentTableConfig">
+    <tc-table
+      :listCount="dataCount"
+      :listData="dataList"
+      v-bind="contentTableConfig"
+      v-model:page="pageInfo"
+    >
       <!-- header中的插槽 -->
       <template #headerHandler>
         <el-button type="primary" size="medium">新建用户</el-button>
@@ -33,11 +38,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 import TcTable from '@/base-ui/table'
-import overview from '@/router/main/analysis/overview/overview'
 
 export default defineComponent({
   components: { TcTable },
@@ -53,6 +57,10 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore()
+
+    //双向绑定pageInfo
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+
     //发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch('system/getPageListAction', {
@@ -64,7 +72,7 @@ export default defineComponent({
         }
       })
     }
-
+    getPageData()
     //从Vuex中获取数据
     // let listData
     // switch (props.pageName) {
@@ -79,14 +87,16 @@ export default defineComponent({
       store.getters[`system/pageListData`](props.pageName)
     )
 
-    // const userCount = computed(() => store.state.system.userCount)
+    const dataCount = computed(() =>
+      store.getters[`system/pageListCount`](props.pageName)
+    )
 
-    return { dataList, getPageData }
+    return { dataList, getPageData, dataCount, pageInfo }
   }
 })
 </script>
 
-<style scoped lang="less">
+<style scoped>
 .page-content {
   padding: 20px;
   border-top: 20px solid #f5f5f5;

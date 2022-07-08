@@ -105,10 +105,7 @@ export default defineComponent({
     // )
 
     const handleValueChange = (value: any, field: string) => {
-      console.log(props.modelValue)
-
       emit('update:modelValue', { ...props.modelValue, [field]: value })
-      console.log(props.modelValue)
     }
 
     return { handleValueChange }
