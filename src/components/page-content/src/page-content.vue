@@ -13,7 +13,7 @@
       </template>
 
       <!--列中的插槽 -->
-      <template #state="scope">
+      <template #status="scope">
         <el-button
           plain
           size="small"
@@ -27,6 +27,14 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
+      <template #image="scope">
+        <el-image
+          style="width: 60px; height: 60px"
+          :src="scope.row.imgUrl"
+          :preview-src-list="[scope.row.imgUrl]"
+          preview-teleported="true"
+        />
+      </template>
       <template #handler>
         <el-button icon="Edit" link type="primary" size="small">编辑</el-button>
         <el-button icon="Delete" link type="danger" size="small"
@@ -38,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 import TcTable from '@/base-ui/table'
@@ -60,19 +68,20 @@ export default defineComponent({
 
     //双向绑定pageInfo
     const pageInfo = ref({ currentPage: 0, pageSize: 10 })
-
+    watch(pageInfo, () => getPageData())
     //发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 10,
+          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          size: pageInfo.value.pageSize,
           ...queryInfo
         }
       })
     }
     getPageData()
+
     //从Vuex中获取数据
     // let listData
     // switch (props.pageName) {

@@ -1,9 +1,10 @@
 export const contentTableConfig = {
+  title: '用户列表',
   propList: [
-    { prop: 'name', label: '用户名', minWidth: '100' },
-    { prop: 'realname', label: '真实姓名', minWidth: '100' },
-    { prop: 'cellphone', label: '电话号码', minWidth: '100' },
-    { prop: 'enable', label: '状态', minWidth: '100', slotName: 'state' },
+    { prop: 'name', label: '用户名', minWidth: '80' },
+    { prop: 'realname', label: '真实姓名', minWidth: '80' },
+    { prop: 'cellphone', label: '电话号码', minWidth: '80' },
+    { prop: 'enable', label: '状态', minWidth: '100', slotName: 'status' },
     {
       prop: 'createAt',
       label: '创建时间',
@@ -22,7 +23,6 @@ export const contentTableConfig = {
       slotName: 'handler'
     }
   ],
-  title: '用户列表',
   showIndexColumn: true,
   showSelectColumn: true
 }
