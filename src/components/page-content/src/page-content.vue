@@ -8,7 +8,7 @@
     >
       <!-- header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary" size="medium">新建用户</el-button>
+        <el-button type="primary" size="small">新建用户</el-button>
         <el-button icon="Refresh"></el-button>
       </template>
 
@@ -27,19 +27,22 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #image="scope">
-        <el-image
-          style="width: 60px; height: 60px"
-          :src="scope.row.imgUrl"
-          :preview-src-list="[scope.row.imgUrl]"
-          preview-teleported="true"
-        />
-      </template>
       <template #handler>
         <el-button icon="Edit" link type="primary" size="small">编辑</el-button>
         <el-button icon="Delete" link type="danger" size="small"
           >删除</el-button
         >
+      </template>
+
+      <!-- 在page-content中动态插入剩余的插槽 -->
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
       </template>
     </tc-table>
   </div>
@@ -66,10 +69,11 @@ export default defineComponent({
   setup(props) {
     const store = useStore()
 
-    //双向绑定pageInfo
+    //1.双向绑定pageInfo
     const pageInfo = ref({ currentPage: 0, pageSize: 10 })
     watch(pageInfo, () => getPageData())
-    //发送网络请求
+
+    //2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
@@ -82,7 +86,7 @@ export default defineComponent({
     }
     getPageData()
 
-    //从Vuex中获取数据
+    //3.从Vuex中获取数据
     // let listData
     // switch (props.pageName) {
     //   case 'users':
@@ -95,12 +99,22 @@ export default defineComponent({
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
     )
-
     const dataCount = computed(() =>
       store.getters[`system/pageListCount`](props.pageName)
     )
 
-    return { dataList, getPageData, dataCount, pageInfo }
+    //4.获取其他的动态插槽名称
+    const otherPropSlots = props.contentTableConfig?.propList.filter(
+      (item: any) => {
+        if (item.slotName === 'status') return false
+        if (item.slotName === 'createAt') return false
+        if (item.slotName === 'updateAt') return false
+        if (item.slotName === 'handler') return false
+        return true
+      }
+    )
+
+    return { dataList, getPageData, dataCount, pageInfo, otherPropSlots }
   }
 })
 </script>

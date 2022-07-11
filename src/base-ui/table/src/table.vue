@@ -15,6 +15,7 @@
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         v-if="showSelectColumn"
@@ -39,12 +40,12 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="page.currentPage"
+          :currentPage="page.currentPage"
           :page-size="page.pageSize"
           :page-sizes="[10, 20, 30]"
           layout="total, sizes, prev, pager, next, jumper"
@@ -62,7 +63,7 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      defalut: ''
+      default: ''
     },
     listData: {
       type: Object,
@@ -70,7 +71,7 @@ export default defineComponent({
     },
     listCount: {
       type: Number,
-      defalut: 0
+      default: 0
     },
     propList: {
       type: Array,
@@ -78,15 +79,23 @@ export default defineComponent({
     },
     showIndexColumn: {
       type: Boolean,
-      defalut: false
+      default: false
     },
     showSelectColumn: {
       type: Boolean,
-      defalut: false
+      default: false
     },
     page: {
       type: Object,
-      defalut: () => ({ currentPage: 0, pageSize: 10 })
+      default: () => ({ currentPage: 0, pageSize: 10 })
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['selectionChange', 'update:page'],
@@ -95,7 +104,6 @@ export default defineComponent({
       emit('selectionChange', value)
     }
     const handleCurrentChange = (currentPage: number) => {
-      console.log(props.page)
       emit('update:page', { ...props.page, currentPage })
     }
     const handleSizeChange = (pageSize: number) => {
@@ -127,6 +135,7 @@ export default defineComponent({
 
 .footer {
   margin-top: 15px;
+
   .el-pagination {
     text-align: right;
   }
