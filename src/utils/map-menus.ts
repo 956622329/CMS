@@ -1,6 +1,7 @@
 import { IBreadcrumb } from './../base-ui/breadcrunmb/types/index'
 import { RouteRecordRaw } from 'vue-router'
 let firstMenu: any = null
+//动态添加路由
 export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
 
@@ -41,6 +42,7 @@ export function pathMapBreadcrumbs(userMenus: any[], currentPath: string): any {
   return breadcrumbs
 }
 
+//匹配菜单和地址
 export function pathMapToMenu(
   userMenus: any[],
   currentPath: string,
@@ -58,5 +60,21 @@ export function pathMapToMenu(
       return menu
     }
   }
+}
+
+//查看用户权限
+export function mapMenusToPermissions(userMenus: any[]) {
+  const permissions: string[] = []
+  const _recurseGetPermission = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetPermission(menu.children ?? [])
+      } else if (menu.type === 3) {
+        permissions.push(menu.permission)
+      }
+    }
+  }
+  _recurseGetPermission(userMenus)
+  return permissions
 }
 export { firstMenu }

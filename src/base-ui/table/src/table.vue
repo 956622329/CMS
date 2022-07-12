@@ -50,7 +50,7 @@
           :page-sizes="[10, 20, 30]"
           layout="total, sizes, prev, pager, next, jumper"
           :total="listCount"
-        />
+        ></el-pagination>
       </slot>
     </div>
   </div>
@@ -67,7 +67,7 @@ export default defineComponent({
     },
     listData: {
       type: Object,
-      reuqired: true
+      required: true
     },
     listCount: {
       type: Number,
@@ -75,7 +75,7 @@ export default defineComponent({
     },
     propList: {
       type: Array,
-      reuqired: true
+      required: true
     },
     showIndexColumn: {
       type: Boolean,
@@ -107,7 +107,7 @@ export default defineComponent({
       emit('update:page', { ...props.page, currentPage })
     }
     const handleSizeChange = (pageSize: number) => {
-      emit('update:page', { ...props.page, pageSize: [`${pageSize}`] })
+      emit('update:page', { ...props.page, pageSize })
     }
 
     return { handleSelectionChange, handleSizeChange, handleCurrentChange }
@@ -137,7 +137,7 @@ export default defineComponent({
   margin-top: 15px;
 
   .el-pagination {
-    text-align: right;
+    justify-content: right;
   }
 }
 </style>

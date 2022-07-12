@@ -1,5 +1,3 @@
-import { formItemValidateStates } from 'element-plus'
-
 export const contentTableConfig = {
   title: '菜单列表',
   propList: [

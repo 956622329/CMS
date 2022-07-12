@@ -12,7 +12,7 @@ import {
 import router from '@/router'
 import localCache from '@/utils/cache'
 
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/map-menus'
 
 const loginModule: Module<ILoginSate, IRootState> = {
   namespaced: true,
@@ -20,7 +20,8 @@ const loginModule: Module<ILoginSate, IRootState> = {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   getters: {},
@@ -42,6 +43,10 @@ const loginModule: Module<ILoginSate, IRootState> = {
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
+
+      //获取用户按钮权限
+      const permissions = mapMenusToPermissions(userMenus)
+      state.permissions = permissions
     }
   },
   actions: {

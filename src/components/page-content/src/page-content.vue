@@ -8,7 +8,9 @@
     >
       <!-- header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary" size="small">新建用户</el-button>
+        <el-button v-if="isCreate" type="primary" size="small"
+          >新建用户</el-button
+        >
         <el-button icon="Refresh"></el-button>
       </template>
 
@@ -27,9 +29,17 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #handler>
-        <el-button icon="Edit" link type="primary" size="small">编辑</el-button>
-        <el-button icon="Delete" link type="danger" size="small"
+      <template #handler="scope">
+        <el-button v-if="isUpdate" icon="Edit" link type="primary" size="small"
+          >编辑</el-button
+        >
+        <el-button
+          v-if="isDelete"
+          icon="Delete"
+          link
+          type="danger"
+          size="small"
+          @click="handleDeleteClick(scope.row)"
           >删除</el-button
         >
       </template>
@@ -52,6 +62,7 @@
 import { defineComponent, computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
+import { usePermission } from '@/hooks//use-permission'
 import TcTable from '@/base-ui/table'
 
 export default defineComponent({
@@ -59,26 +70,33 @@ export default defineComponent({
   props: {
     contentTableConfig: {
       type: Object,
-      require: true
+      required: true
     },
     pageName: {
       type: String,
-      require: true
+      required: true
     }
   },
   setup(props) {
     const store = useStore()
 
+    //0.获取操作的权限
+    const isCreate = usePermission(props.pageName, 'create')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isQuery = usePermission(props.pageName, 'query')
+
     //1.双向绑定pageInfo
-    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
     //2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
+      if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
-          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
           size: pageInfo.value.pageSize,
           ...queryInfo
         }
@@ -113,8 +131,25 @@ export default defineComponent({
         return true
       }
     )
+    //5.删除/编辑/新建操作
+    const handleDeleteClick = (item: any) => {
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
 
-    return { dataList, getPageData, dataCount, pageInfo, otherPropSlots }
+    return {
+      dataList,
+      getPageData,
+      dataCount,
+      pageInfo,
+      otherPropSlots,
+      isCreate,
+      isUpdate,
+      isDelete,
+      handleDeleteClick
+    }
   }
 })
 </script>
