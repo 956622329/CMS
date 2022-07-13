@@ -8,7 +8,11 @@
     >
       <!-- header中的插槽 -->
       <template #headerHandler>
-        <el-button v-if="isCreate" type="primary" size="small"
+        <el-button
+          v-if="isCreate"
+          type="primary"
+          size="small"
+          @click="handleNewClick"
           >新建用户</el-button
         >
         <el-button icon="Refresh"></el-button>
@@ -30,7 +34,13 @@
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
       <template #handler="scope">
-        <el-button v-if="isUpdate" icon="Edit" link type="primary" size="small"
+        <el-button
+          v-if="isUpdate"
+          icon="Edit"
+          link
+          type="primary"
+          size="small"
+          @click="handleEditClick(scope.row)"
           >编辑</el-button
         >
         <el-button
@@ -77,7 +87,7 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  setup(props, { emit }) {
     const store = useStore()
 
     //0.获取操作的权限
@@ -138,6 +148,14 @@ export default defineComponent({
         id: item.id
       })
     }
+    const handleNewClick = () => {
+      emit('newBtnClick')
+    }
+    const handleEditClick = (item: any) => {
+      console.log(item)
+
+      emit('editBtnClick', item)
+    }
 
     return {
       dataList,
@@ -148,7 +166,9 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
-      handleDeleteClick
+      handleDeleteClick,
+      handleNewClick,
+      handleEditClick
     }
   }
 })

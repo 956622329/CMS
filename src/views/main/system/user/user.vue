@@ -9,8 +9,14 @@
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="users"
+      @newBtnClick="handleNewData"
+      @editBtnClick="handleEditData"
     />
-    <page-modal :modalConfig="modalConfig" :formData="formData" />
+    <page-modal
+      ref="pageModalRef"
+      :modalConfig="modalConfig"
+      :defaultInfo="defaultInfo"
+    />
   </div>
 </template>
 
@@ -34,13 +40,31 @@ export default defineComponent({
     const [pageContentRef, handlerResetClick, handleQueryClick] =
       usePageSearch()
 
+    const pageModalRef = ref<InstanceType<typeof PageModal>>()
+    const defaultInfo = ref({})
+    const handleNewData = () => {
+      if (pageModalRef.value) {
+        pageModalRef.value.dialogVisible = true
+      }
+    }
+    const handleEditData = (item: any) => {
+      defaultInfo.value = { ...item }
+      if (pageModalRef.value) {
+        pageModalRef.value.dialogVisible = true
+      }
+    }
+
     return {
       searchFormConfig,
       contentTableConfig,
       modalConfig,
       handlerResetClick,
       handleQueryClick,
-      pageContentRef
+      pageContentRef,
+      handleNewData,
+      handleEditData,
+      pageModalRef,
+      defaultInfo
     }
   }
 })
