@@ -32,6 +32,7 @@ import { contentTableConfig } from './config/content.config'
 import { modalConfig } from './config/modal.config'
 
 import { usePageSearch } from '@/hooks/use-page-search'
+import { usePageModal } from '@/hooks/use-page-modal'
 
 export default defineComponent({
   components: { PageSearch, PageContent, PageModal },
@@ -39,20 +40,8 @@ export default defineComponent({
   setup() {
     const [pageContentRef, handlerResetClick, handleQueryClick] =
       usePageSearch()
-
-    const pageModalRef = ref<InstanceType<typeof PageModal>>()
-    const defaultInfo = ref({})
-    const handleNewData = () => {
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
-    }
-    const handleEditData = (item: any) => {
-      defaultInfo.value = { ...item }
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
-    }
+    const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
+      usePageModal()
 
     return {
       searchFormConfig,
