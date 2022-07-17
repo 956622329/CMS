@@ -14,7 +14,8 @@ export const modalConfig = {
       field: 'realname',
       type: 'input',
       label: '真实姓名',
-      placeholder: '请输入真实姓名'
+      placeholder: '请输入真实姓名',
+      isHidden: true
     },
     {
       field: 'password',
