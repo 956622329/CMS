@@ -14,14 +14,14 @@ export const modalConfig = {
       field: 'realname',
       type: 'input',
       label: '真实姓名',
-      placeholder: '请输入真实姓名',
-      isHidden: true
+      placeholder: '请输入真实姓名'
     },
     {
       field: 'password',
       type: 'password',
       label: '密码',
-      placeholder: '请输入密码'
+      placeholder: '请输入密码',
+      isHidden: true
     },
     {
       field: 'cellphone',
