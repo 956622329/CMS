@@ -9,7 +9,7 @@ export function usePageModal(newCb?: CallbackTypeFn, editCb?: CallbackTypeFn) {
   const handleNewData = () => {
     defaultInfo.value = {}
     if (pageModalRef.value) {
-      pageModalRef.value.dialogVisible = false
+      pageModalRef.value.dialogVisible = true
     }
     newCb && newCb()
   }
