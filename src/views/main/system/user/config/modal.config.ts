@@ -1,4 +1,5 @@
-export const modalConfig = {
+import { IForm } from '@/base-ui/form/types'
+export const modalConfig: IForm = {
   itemStyle: {},
   colLayout: {
     span: 24
