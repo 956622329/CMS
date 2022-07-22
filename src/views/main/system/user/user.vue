@@ -14,6 +14,7 @@
     />
     <page-modal
       ref="pageModalRef"
+      pageName="users"
       :modalConfig="modalConfigRef"
       :defaultInfo="defaultInfo"
     />
@@ -41,6 +42,7 @@ export default defineComponent({
   setup() {
     const [pageContentRef, handlerResetClick, handleQueryClick] =
       usePageSearch()
+
     //pageModel相关的hook逻辑
     //1.处理密码的逻辑
     const newCallback = () => {

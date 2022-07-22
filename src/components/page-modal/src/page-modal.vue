@@ -11,9 +11,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
-            >确认</el-button
-          >
+          <el-button type="primary" @click="handleConfirmClick">确认</el-button>
         </span>
       </template>
     </el-dialog>
@@ -23,6 +21,8 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import TcForm from '@/base-ui/form'
+
+import { useStore } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -36,11 +36,16 @@ export default defineComponent({
     defaultInfo: {
       type: Object,
       default: () => ({})
+    },
+    pageName: {
+      type: String,
+      required: true
     }
   },
   setup(props) {
     const dialogVisible = ref(false)
     const formData = ref<any>({})
+    const store = useStore()
     watch(
       () => props.defaultInfo,
       (newValue) => {
@@ -48,7 +53,21 @@ export default defineComponent({
           formData.value[`${item.field}`] = newValue[`${item.field}`]
       }
     )
-    return { dialogVisible, formData }
+
+    //点击确定按钮的逻辑
+    const handleConfirmClick = () => {
+      dialogVisible.value = false
+      if (Object.keys(props.defaultInfo).length) {
+        //编辑
+      } else {
+        //新建
+        store.dispatch('createPageDataAction', {
+          pageName: props.pageName,
+          newData: props.modalConfig
+        })
+      }
+    }
+    return { dialogVisible, formData, handleConfirmClick }
   }
 })
 </script>
