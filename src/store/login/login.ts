@@ -1,18 +1,17 @@
-import { IAcount } from './../../service/login/type'
 import { Module } from 'vuex'
-
-import { ILoginSate } from './types'
-import { IRootState } from '../types'
 
 import {
   accountLoginRequest,
   requestUserInfoById,
   requestUserMenusById
 } from '@/service/login/login'
-import router from '@/router'
 import localCache from '@/utils/cache'
-
 import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/map-menus'
+import router from '@/router'
+
+import { IAcount } from './../../service/login/type'
+import { ILoginSate } from './types'
+import { IRootState } from '../types'
 
 const loginModule: Module<ILoginSate, IRootState> = {
   namespaced: true,
@@ -51,12 +50,15 @@ const loginModule: Module<ILoginSate, IRootState> = {
   },
   actions: {
     //账号密码登录
-    async accountLoginAction({ commit }, payload: IAcount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAcount) {
       //1.实现登录逻辑
       const loginResult = await accountLoginRequest(payload)
       const { id, token } = loginResult.data
       commit('changeToken', token)
       localCache.setCache('token', token)
+
+      //发送初始化的请求(完整的role/department)
+      dispatch('getInitialDataAction', null, { root: true })
 
       //2.请求用户信息
       const userInfoResult = await requestUserInfoById(id)
@@ -73,10 +75,12 @@ const loginModule: Module<ILoginSate, IRootState> = {
       //4.跳到首页
       router.push('/main')
     },
-    loadLocalLogin({ commit }) {
+    loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache('token')
       if (token) {
         commit('changeToken', token)
+        //发送初始化的请求(完整的role/department)
+        dispatch('getInitialDataAction', null, { root: true })
       }
       const userInfo = localCache.getCache('userInfo')
       if (token) {

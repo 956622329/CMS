@@ -25,6 +25,12 @@ export const modalConfig: IForm = {
       isHidden: true
     },
     {
+      field: 'cellphone',
+      type: 'input',
+      label: '电话号码',
+      placeholder: '请输入电话号码'
+    },
+    {
       field: 'departmentId',
       type: 'select',
       label: '选择部门',

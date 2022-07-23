@@ -45,7 +45,7 @@ export default defineComponent({
   setup(props) {
     const dialogVisible = ref(false)
     const formData = ref<any>({})
-    const store = useStore()
+
     watch(
       () => props.defaultInfo,
       (newValue) => {
@@ -55,15 +55,21 @@ export default defineComponent({
     )
 
     //点击确定按钮的逻辑
+    const store = useStore()
     const handleConfirmClick = () => {
       dialogVisible.value = false
       if (Object.keys(props.defaultInfo).length) {
         //编辑
+        store.dispatch('system/editPageDataAction', {
+          pageName: props.pageName,
+          editData: { ...formData.value },
+          id: props.defaultInfo.id
+        })
       } else {
         //新建
-        store.dispatch('createPageDataAction', {
+        store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
-          newData: props.modalConfig
+          newData: { ...formData.value }
         })
       }
     }

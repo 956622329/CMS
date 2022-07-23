@@ -50,14 +50,12 @@ export default defineComponent({
         (item) => item.field === 'password'
       )
       passwordItem!.isHidden = false
-      console.log(passwordItem!.isHidden)
     }
     const editCallback = () => {
       const passwordItem = modalConfig.formItems.find(
         (item) => item.field === 'password'
       )
       passwordItem!.isHidden = true
-      console.log(passwordItem!.isHidden)
     }
 
     //2.动态添加部门和角色列表
