@@ -1,5 +1,6 @@
 export const contentTableConfig = {
   title: '用户列表',
+  newTitle: '新建用户',
   propList: [
     { prop: 'name', label: '用户名', minWidth: '80' },
     { prop: 'realname', label: '真实姓名', minWidth: '80' },

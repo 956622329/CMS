@@ -2,12 +2,13 @@
   <div class="page-modal">
     <el-dialog
       v-model="dialogVisible"
-      title="新建用户"
+      :title="modalTitle"
       width="30%"
       center
       destroy-on-close
     >
       <tc-form v-bind="modalConfig" v-model="formData"></tc-form>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -19,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 import TcForm from '@/base-ui/form'
 
 import { useStore } from 'vuex'
@@ -40,12 +41,16 @@ export default defineComponent({
     pageName: {
       type: String,
       required: true
+    },
+    otherInfo: {
+      type: Object,
+      default: () => ({})
     }
   },
   setup(props) {
     const dialogVisible = ref(false)
     const formData = ref<any>({})
-
+    const title = ref('')
     watch(
       () => props.defaultInfo,
       (newValue) => {
@@ -60,20 +65,23 @@ export default defineComponent({
       dialogVisible.value = false
       if (Object.keys(props.defaultInfo).length) {
         //编辑
+
         store.dispatch('system/editPageDataAction', {
           pageName: props.pageName,
-          editData: { ...formData.value },
+          editData: { ...formData.value, ...props.otherInfo },
           id: props.defaultInfo.id
         })
       } else {
         //新建
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
-          newData: { ...formData.value }
+          newData: { ...formData.value, ...props.otherInfo }
         })
       }
     }
-    return { dialogVisible, formData, handleConfirmClick }
+    //标题
+    const modalTitle = computed(() => title.value + props.modalConfig.title)
+    return { dialogVisible, formData, handleConfirmClick, modalTitle, title }
   }
 })
 </script>

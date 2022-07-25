@@ -18,4 +18,5 @@ export interface IForm {
   labelWidth?: string
   colLayout?: any
   itemStyle?: any
+  title?: string
 }

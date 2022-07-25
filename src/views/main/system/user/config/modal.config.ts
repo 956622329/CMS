@@ -1,6 +1,7 @@
 import { IForm } from '@/base-ui/form/types'
 export const modalConfig: IForm = {
   itemStyle: {},
+  title: '用户',
   colLayout: {
     span: 24
   },

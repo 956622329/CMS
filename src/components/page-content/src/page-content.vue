@@ -13,9 +13,13 @@
           type="primary"
           size="small"
           @click="handleNewClick"
-          >新建用户</el-button
+          >{{ contentTableConfig.newTitle }}</el-button
         >
-        <el-button icon="Refresh"></el-button>
+        <el-button
+          icon="Refresh"
+          size="small"
+          @click="getPageData()"
+        ></el-button>
       </template>
 
       <!--列中的插槽 -->
