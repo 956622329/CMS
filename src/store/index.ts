@@ -5,6 +5,7 @@ import { getPageListData } from '@/service/main/system/system'
 
 import login from './login/login'
 import system from './main/system/system'
+import dasboard from './main/analysis/dasboard'
 
 const store = createStore<IRootState>({
   state() {
@@ -50,7 +51,8 @@ const store = createStore<IRootState>({
   },
   modules: {
     login,
-    system
+    system,
+    dasboard
   }
 })
 
