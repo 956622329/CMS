@@ -16,8 +16,6 @@ const props = defineProps<{
 const options = computed(() => {
   return {
     title: {
-      text: 'Referer of a Website',
-      subtext: 'Fake Data',
       left: 'center'
     },
     tooltip: {
