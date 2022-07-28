@@ -1,12 +1,12 @@
 //service统一出口
 import TCRequest from './request'
-import { BASE_URL, BTIME_OUT } from './request/config'
+import { API_BASE_URL, TIME_OUT } from './request/config'
 
 import LocalCache from '@/utils/cache'
 
 const tcRequest = new TCRequest({
-  baseURL: BASE_URL,
-  timeout: BTIME_OUT,
+  baseURL: API_BASE_URL,
+  timeout: TIME_OUT,
 
   interceptors: {
     requestInterceptor: (config) => {

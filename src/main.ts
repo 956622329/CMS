@@ -21,6 +21,7 @@ setupStore()
 app.use(router)
 
 app.mount('#app')
+console.log(process.env.NODE_ENV)
 
 // createApp(App).use(globalRegister).use(router).use(store).mount('#app')
 
