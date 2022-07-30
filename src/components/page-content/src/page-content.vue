@@ -27,10 +27,11 @@
         <el-button
           plain
           size="small"
-          :type="scope.row.enable ? 'success' : 'danger'"
-          >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
+          :type="scope.row.status ? 'success' : 'danger'"
+          >{{ scope.row.status ? '启用' : '禁用' }}</el-button
         >
       </template>
+
       <template #createAt="scope">
         <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
       </template>

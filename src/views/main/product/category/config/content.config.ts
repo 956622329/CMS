@@ -1,10 +1,8 @@
 export const contentTableConfig = {
-  title: '部门列表',
-  newTitle: '新建部门',
+  title: '商品类别列表',
+  newTitle: '新建商品类别',
   propList: [
-    { prop: 'name', label: '部门名称', minWidth: '100' },
-    { prop: 'leader', label: '部门领导', minWidth: '60' },
-    { prop: 'parentId', label: '上级部门', minWidth: '100' },
+    { prop: 'name', label: '商品类别', minWidth: '100' },
     {
       prop: 'createAt',
       label: '创建时间',
