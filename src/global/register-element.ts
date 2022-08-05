@@ -16,7 +16,6 @@ import {
   ElInput,
   ElFormItem,
   ElCheckbox,
-  ElLink,
   ElContainer,
   ElHeader,
   ElMain,
@@ -41,7 +40,11 @@ import {
   ElImage,
   ElDialog,
   ElTree,
-  ElCard
+  ElCard,
+  ElLink,
+  ElDescriptions,
+  ElTag,
+  ElDescriptionsItem
 } from 'element-plus'
 
 const components = [
@@ -59,7 +62,6 @@ const components = [
   ElInput,
   ElFormItem,
   ElCheckbox,
-  ElLink,
   ElContainer,
   ElHeader,
   ElMain,
@@ -84,7 +86,11 @@ const components = [
   ElImage,
   ElDialog,
   ElTree,
-  ElCard
+  ElCard,
+  ElLink,
+  ElDescriptions,
+  ElTag,
+  ElDescriptionsItem
 ]
 
 export default function (app: App): void {

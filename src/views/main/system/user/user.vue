@@ -11,7 +11,16 @@
       pageName="users"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
-    />
+    >
+      <template #enable="scope">
+        <el-button
+          plain
+          size="small"
+          :type="scope.row.enable ? 'success' : 'danger'"
+          >{{ scope.row.enable ? '启用' : '禁用' }}</el-button
+        >
+      </template>
+    </page-content>
     <page-modal
       ref="pageModalRef"
       pageName="users"
@@ -28,21 +37,18 @@ import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
 import PageModal from '@/components/page-modal'
 
-import { searchFormConfig } from './config/search.config'
-import { contentTableConfig } from './config/content.config'
-import { modalConfig } from './config/modal.config'
+import { contentTableConfig, modalConfig, searchFormConfig } from './config'
 
 import { usePageSearch } from '@/hooks/use-page-search'
 import { usePageModal } from '@/hooks/use-page-modal'
 import { useStore } from 'vuex'
 
 export default defineComponent({
-  components: { PageSearch, PageContent, PageModal },
   name: 'user',
+  components: { PageSearch, PageContent, PageModal },
   setup() {
     const [pageContentRef, handlerResetClick, handleQueryClick] =
       usePageSearch()
-
     //pageModel相关的hook逻辑
     //1.处理密码的逻辑
     const newCallback = () => {

@@ -23,7 +23,6 @@ import { rules } from '../config/account-config'
 export default defineComponent({
   setup() {
     const store = useStore()
-
     const account = reactive({
       name: LocalCache.getCache('name') ?? '',
       password: LocalCache.getCache('password') ?? ''

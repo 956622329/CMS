@@ -19,8 +19,8 @@ import { contentTableConfig } from './config/content.config'
 import { usePageModal } from '@/hooks/use-page-modal'
 
 export default defineComponent({
-  components: { PageContent },
   name: 'tc-menu',
+  components: { PageContent },
   setup() {
     const [pageModalRef, defaultInfo, handleNewData, handleEditData] =
       usePageModal()

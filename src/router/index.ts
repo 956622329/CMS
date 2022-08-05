@@ -29,7 +29,7 @@ const router = createRouter({
   routes,
   history: createWebHashHistory()
 })
-//导航守卫
+//挂载路由导航守卫
 router.beforeEach((to) => {
   if (to.path !== '/login') {
     const token = LocalCache.getCache('token')

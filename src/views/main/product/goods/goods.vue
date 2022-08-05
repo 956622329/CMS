@@ -46,12 +46,12 @@ import { usePageSearch } from '@/hooks/use-page-search'
 import { usePageModal } from '@/hooks/use-page-modal'
 
 export default defineComponent({
+  name: 'goods',
   components: {
     PageSearch,
     PageContent,
     PageModal
   },
-  name: 'goods',
   setup() {
     const [pageContentRef, handlerResetClick, handleQueryClick] =
       usePageSearch()
