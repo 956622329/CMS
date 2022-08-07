@@ -114,12 +114,6 @@ export default defineComponent({
     TcCode
   },
   setup() {
-    // for (const data of dependencies) {
-    //   console.log(data)
-    //   console.log(data.name)
-    //   console.log(data.description)
-    // }
-
     return { technologyStacks, projectDir, dependencies, devDependencies }
   }
 })
