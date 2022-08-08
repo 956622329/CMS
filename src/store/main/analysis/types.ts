@@ -3,4 +3,5 @@ export interface IDasboardState {
   categoryGoodsSale: any[]
   categoryGoodsFavor: any[]
   addressGoodsSale: any[]
+  topPanelDatas: any[]
 }

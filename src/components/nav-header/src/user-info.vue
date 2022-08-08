@@ -16,8 +16,10 @@
           <el-dropdown-item icon="CircleClose" @click="handleExitClick"
             >退出登录</el-dropdown-item
           >
-          <el-dropdown-item divided>用户信息</el-dropdown-item>
-          <el-dropdown-item>系统管理</el-dropdown-item>
+          <el-dropdown-item icon="WarningFilled" divided
+            >个人信息</el-dropdown-item
+          >
+          <el-dropdown-item icon="Unlock">修改密码</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>

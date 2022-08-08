@@ -13,7 +13,10 @@ import {
   Refresh,
   Search,
   Edit,
-  Delete
+  Delete,
+  Warning,
+  WarningFilled,
+  Unlock
 } from '@element-plus/icons-vue'
 
 const components = [
@@ -29,7 +32,10 @@ const components = [
   Refresh,
   Search,
   Edit,
-  Delete
+  Delete,
+  Warning,
+  WarningFilled,
+  Unlock
 ]
 
 export default function (app: App): void {

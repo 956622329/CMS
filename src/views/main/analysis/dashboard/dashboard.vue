@@ -1,5 +1,15 @@
 <template>
   <div class="dashboard">
+    <!-- 1.顶部数据统计 -->
+    <el-row :gutter="10">
+      <template v-for="item in topPanelData" :key="item.title">
+        <el-col :md="12" :lg="6" :xl="6">
+          <statistical-panel :panelData="item" />
+        </el-col>
+      </template>
+    </el-row>
+
+    <!-- 2.中间图标 -->
     <el-row :gutter="10">
       <el-col :span="7">
         <tc-card :title="'分类商品数量(饼图)'">
@@ -17,6 +27,7 @@
         </tc-card>
       </el-col>
     </el-row>
+
     <el-row :gutter="10" class="content-row">
       <el-col :span="12">
         <tc-card :title="'分类商品的销量'">
@@ -37,6 +48,7 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
 
 import TcCard from '@/base-ui/card'
+import StatisticalPanel from '@/components/statistical-panel'
 import {
   PieEchart,
   RoseEchart,
@@ -53,24 +65,31 @@ export default defineComponent({
     RoseEchart,
     LineEchart,
     BarEchart,
-    MapEchart
+    MapEchart,
+    StatisticalPanel
   },
   setup() {
-    const store = useStore()
     //请求数据
-    store.dispatch('dashboard/getDashboardDataAction')
+    const store = useStore()
+    store.dispatch('analysis/getDashboardDataAction')
 
     //获取数据
+    const topPanelData = computed(() => store.state.analysis.topPanelDatas)
     const categoryGoodsCount = computed(() => {
-      return store.state.dashboard.categoryGoodsCount.map((item: any) => {
+      return store.state.analysis.categoryGoodsCount.map((item: any) => {
         return { name: item.name, value: item.goodsCount }
+      })
+    })
+    const addressGoodsSale = computed(() => {
+      return store.state.analysis.addressGoodsSale.map((item: any) => {
+        return { name: item.address, value: item.count }
       })
     })
     const categoryGoodsSale = computed(() => {
       const xLabels: string[] = []
       const values: any[] = []
 
-      const categoryGoodsSale = store.state.dashboard.categoryGoodsSale
+      const categoryGoodsSale = store.state.analysis.categoryGoodsSale
       for (const item of categoryGoodsSale) {
         xLabels.push(item.name)
         values.push(item.goodsCount)
@@ -82,7 +101,7 @@ export default defineComponent({
       const xLabels: string[] = []
       const values: any[] = []
 
-      const categoryGoodsFavor = store.state.dashboard.categoryGoodsFavor
+      const categoryGoodsFavor = store.state.analysis.categoryGoodsFavor
       for (const item of categoryGoodsFavor) {
         xLabels.push(item.name)
         values.push(item.goodsFavor)
@@ -90,24 +109,24 @@ export default defineComponent({
 
       return { xLabels, values }
     })
-    const addressGoodsSale = computed(() => {
-      return store.state.dashboard.addressGoodsSale.map((item: any) => {
-        return { name: item.address, value: item.count }
-      })
-    })
 
     return {
       categoryGoodsCount,
       categoryGoodsSale,
       categoryGoodsFavor,
-      addressGoodsSale
+      addressGoodsSale,
+      topPanelData
     }
   }
 })
 </script>
 
 <style scoped lang="less">
-.content-row {
-  margin-top: 20px;
+.dashboard {
+  background-color: #f5f5f5;
+
+  .content-row {
+    margin-top: 20px;
+  }
 }
 </style>
