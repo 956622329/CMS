@@ -1,11 +1,12 @@
 <template>
   <div class="nav-header">
     <el-icon class="fold-menu" v-if="isFold" @click="handleFoldClick">
-      <component :is="'Expand'"></component
-    ></el-icon>
-    <el-icon class="fold-menu" v-if="!isFold" @click="handleFoldClick"
-      ><Fold
-    /></el-icon>
+      <!-- <component :is="'Fold'"></component> -->
+      <Fold />
+    </el-icon>
+    <el-icon class="fold-menu" v-if="!isFold" @click="handleFoldClick">
+      <Expand />
+    </el-icon>
     <div class="content">
       <tc-breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info />
@@ -52,7 +53,9 @@ export default defineComponent({
 <style scoped lang="less">
 .nav-header {
   display: flex;
-  width: 100%;
+  // width: 100%;
+  align-items: center;
+  flex: 1;
 
   .fold-menu {
     font-size: 30px;

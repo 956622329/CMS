@@ -16,7 +16,10 @@ import {
   Delete,
   Warning,
   WarningFilled,
-  Unlock
+  Unlock,
+  Bell,
+  ChatDotRound,
+  Postcard
 } from '@element-plus/icons-vue'
 
 const components = [
@@ -35,7 +38,10 @@ const components = [
   Delete,
   Warning,
   WarningFilled,
-  Unlock
+  Unlock,
+  Bell,
+  ChatDotRound,
+  Postcard
 ]
 
 export default function (app: App): void {
